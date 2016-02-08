@@ -2,7 +2,10 @@ package Vistas;
 
 import Controlador.HuespedTools;
 import Controlador.MyTools;
+import Modelo.Huesped;
+import java.util.Date;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * @author andres
@@ -13,6 +16,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
     private HuespedTools HT;
     private MyTools MT;
     private int HuespedActual;
+    private boolean nuevoHuesped;
 
     public Ventana_Huespedes() {
     }
@@ -56,20 +60,47 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         txtFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,12 +132,32 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnPri.setText("|<");
+        btnPri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPriActionPerformed(evt);
+            }
+        });
 
         btnAnt.setText("<");
+        btnAnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAntActionPerformed(evt);
+            }
+        });
 
         btnSig.setText(">");
+        btnSig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSigActionPerformed(evt);
+            }
+        });
 
         btnUlt.setText(">|");
+        btnUlt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -177,6 +228,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         jLabel8.setText("Hab. actual");
 
         txtHabitacion.setText("jTextField7");
+        txtHabitacion.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -272,6 +324,43 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
                 .addComponent(jLabel9))
         );
 
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -284,7 +373,8 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -292,28 +382,135 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        padre.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnPriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPriActionPerformed
+        MostrarDatos(1);
+    }//GEN-LAST:event_btnPriActionPerformed
+
+    private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
+        MostrarDatos(HuespedActual - 1);
+    }//GEN-LAST:event_btnAntActionPerformed
+
+    private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
+        MostrarDatos(HuespedActual + 1);
+    }//GEN-LAST:event_btnSigActionPerformed
+
+    private void btnUltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltActionPerformed
+        MostrarDatos(HT.ContarHuespedes());
+    }//GEN-LAST:event_btnUltActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        padre.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+
+        if (btnModificar.isEnabled()) {
+            HT.RellenarHuespedes();
+        }
+
+        ActivarEdicion(false);
+        MostrarDatos(HuespedActual);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        nuevoHuesped = true;
+        ActivarEdicion(true);
+
+        txtDni.setText("");
+        txtNombre.setText("");
+        txtApellidos.setText("");
+        txtFechaNacimiento.setDate(new Date());
+        txtDireccion.setText("");
+        txtPoblacion.setText("");
+
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        ActivarEdicion(true);
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        if (requeridos()) {
+            Huesped hues;
+            if (nuevoHuesped) {
+                hues = new Huesped(txtDni.getText());
+            } else {
+                hues = HT.getHuesped(HuespedActual);
+            }
+
+            hues.setNombre(txtNombre.getText());
+            hues.setApellidos(txtApellidos.getText());
+            hues.setFechaNac(txtFechaNacimiento.getDate());
+            hues.setDireccion(txtDireccion.getText());
+            hues.setPoblacion(txtPoblacion.getText());
+
+            if (nuevoHuesped) {
+                HT.addHuesped(hues);
+                HT.RellenarHuespedes();
+                HuespedActual = HT.ContarHuespedes();
+            } else {
+                HT.modHuesped(hues);
+                HT.RellenarHuespedes();
+            }
+            ActivarEdicion(false);
+            MostrarDatos(HuespedActual);
+
+        } else {
+            MT.mostrarError("Rellene todos los campos");
+        }
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        if (MT.mostrarPreguntaSiNo("Desea borrar a " + txtNombre.getText() + " " + txtApellidos.getText() + "?") == 0) {
+            HT.delActor(HT.getHuesped(HuespedActual));
+            HT.RellenarHuespedes();
+            MostrarDatos(1);
+        }
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String resp = MT.preguntarPor("Nombre o DNI para buscar?");
+        if (resp != null) {
+            HT.RellenarHuespedes(resp);
+            if (HT.ContarHuespedes() > 0) {
+                MostrarDatos(1);
+
+                btnNuevo.setEnabled(false);
+                btnBuscar.setEnabled(false);
+                btnAceptar.setEnabled(false);
+                jPanel2.setVisible(false);
+                jPanel5.setVisible(true);
+            } else {
+                MT.mostrarError("No se encontraron coincidencias");
+            }
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAnt;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnPri;
@@ -332,6 +529,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JLabel txtContador;
     private javax.swing.JTextField txtDireccion;
@@ -344,7 +542,9 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
 
     private void setUi() {
         HT = new HuespedTools();
+        MT = new MyTools();
         HT.RellenarHuespedes();
+        ActivarEdicion(false);
 
         if (HT.ContarHuespedes() > 0) {
             MostrarDatos(1);
@@ -369,6 +569,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
             hab = ("" + HT.getHuesped(pos).getHabitacion().getIdhabitacion());
         }
         txtHabitacion.setText(hab);
+        txtContador.setText(HuespedActual + " de " + HT.ContarHuespedes());
 
         if (HuespedActual <= 1) {
             btnAnt.setEnabled(false);
@@ -384,5 +585,50 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
             btnSig.setEnabled(true);
             btnUlt.setEnabled(true);
         }
+        nuevoHuesped = false;
+    }
+
+    private void ActivarEdicion(boolean bl) {
+        btnPri.setEnabled(!bl);
+        btnAnt.setEnabled(!bl);
+        btnSig.setEnabled(!bl);
+        btnUlt.setEnabled(!bl);
+        btnNuevo.setEnabled(!bl);
+        btnBuscar.setEnabled(!bl);
+        btnModificar.setEnabled(!bl);
+        btnBorrar.setEnabled(!bl);
+        btnAceptar.setEnabled(bl);
+
+        jPanel2.setVisible(!bl);
+        jPanel5.setVisible(bl);
+
+        txtDni.setEnabled(bl);
+        txtNombre.setEnabled(bl);
+        txtApellidos.setEnabled(bl);
+        txtFechaNacimiento.setEnabled(bl);
+        txtDireccion.setEnabled(bl);
+        txtPoblacion.setEnabled(bl);
+        this.pack();
+    }
+
+    private boolean requeridos() {
+
+        if (txtDni.getText().equals("")) {
+            return false;
+        }
+        if (txtNombre.getText().equals("")) {
+            return false;
+        }
+        if (txtApellidos.getText().equals("")) {
+            return false;
+        }
+        if (txtDireccion.getText().equals("")) {
+            return false;
+        }
+        if (txtPoblacion.getText().equals("")) {
+            return false;
+        }
+
+        return true;
     }
 }
