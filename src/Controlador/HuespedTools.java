@@ -14,16 +14,16 @@ import org.hibernate.Transaction;
  */
 public class HuespedTools {
 
-    private final SessionFactory sessionFactory;
     private ArrayList<Huesped> listaHuespedes;
+    private final SessionFactory sessionFactory;
 
     public HuespedTools() {
-
         sessionFactory = NewHibernateUtil.getSessionFactory();
         listaHuespedes = new ArrayList<>();
     }
 
     public void RellenarHuespedes() {
+        
         Session session = sessionFactory.openSession();
         Transaction tx;
         tx = session.beginTransaction();
@@ -40,7 +40,7 @@ public class HuespedTools {
     }
 
     public int ContarHuespedes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return listaHuespedes.size();
     }
 
     public Huesped getHuesped(int pos) {
