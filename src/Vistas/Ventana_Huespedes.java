@@ -1,13 +1,26 @@
-
 package Vistas;
+
+import Controlador.HuespedTools;
+import Controlador.MyTools;
+import javax.swing.JFrame;
 
 /**
  * @author andres
  */
 public class Ventana_Huespedes extends javax.swing.JFrame {
 
+    private JFrame padre;
+    private HuespedTools HT;
+    private MyTools MT;
+    private int HuespedActual;
+
     public Ventana_Huespedes() {
+    }
+
+    public Ventana_Huespedes(JFrame padre) {
+        this.padre = padre;
         initComponents();
+        setUi();
     }
 
     @SuppressWarnings("unchecked")
@@ -96,6 +109,11 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         btnUlt.setText(">|");
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         txtContador.setText("jLabel1");
 
@@ -114,7 +132,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
                 .addComponent(btnSig)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUlt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addContainerGap())
         );
@@ -286,6 +304,11 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        padre.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnt;
@@ -318,4 +341,48 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPoblacion;
     // End of variables declaration//GEN-END:variables
+
+    private void setUi() {
+        HT = new HuespedTools();
+        HT.RellenarHuespedes();
+
+        if (HT.ContarHuespedes() > 0) {
+            MostrarDatos(1);
+        } else {
+            MT.mostrarError("No hay Huespedes que mostrar");
+            HuespedActual = 1;
+        }
+
+    }
+
+    private void MostrarDatos(int pos) {
+
+        HuespedActual = pos;
+        txtDni.setText(HT.getHuesped(pos).getDni());
+        txtNombre.setText(HT.getHuesped(pos).getNombre());
+        txtApellidos.setText(HT.getHuesped(pos).getApellidos());
+        txtFechaNacimiento.setDate(HT.getHuesped(pos).getFechaNac());
+        txtDireccion.setText(HT.getHuesped(pos).getDireccion());
+        txtPoblacion.setText(HT.getHuesped(pos).getPoblacion());
+        String hab = "N/S";
+        if (HT.getHuesped(pos).getHabitacion() != null) {
+            hab = ("" + HT.getHuesped(pos).getHabitacion().getIdhabitacion());
+        }
+        txtHabitacion.setText(hab);
+
+        if (HuespedActual <= 1) {
+            btnAnt.setEnabled(false);
+            btnPri.setEnabled(false);
+        } else {
+            btnAnt.setEnabled(true);
+            btnPri.setEnabled(true);
+        }
+        if (HuespedActual >= HT.ContarHuespedes()) {
+            btnSig.setEnabled(false);
+            btnUlt.setEnabled(false);
+        } else {
+            btnSig.setEnabled(true);
+            btnUlt.setEnabled(true);
+        }
+    }
 }
