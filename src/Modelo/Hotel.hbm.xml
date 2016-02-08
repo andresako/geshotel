@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-feb-2016 20:41:41 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.Hotel" table="hotel" catalog="geshotel" optimistic-lock="version">
+        <id name="idhotel" type="java.lang.Integer">
+            <column name="idhotel" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="categoria" class="Modelo.Categoria" fetch="select">
+            <column name="categoria" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="100" />
+        </property>
+        <property name="ciudad" type="string">
+            <column name="ciudad" length="45" />
+        </property>
+        <set name="habitacions" table="habitacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="hotel" />
+            </key>
+            <one-to-many class="Modelo.Habitacion" />
+        </set>
+    </class>
+</hibernate-mapping>
