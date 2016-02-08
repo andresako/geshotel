@@ -449,6 +449,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+
         if (requeridos()) {
             Huesped hues;
             if (nuevoHuesped) {
@@ -477,9 +478,12 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         } else {
             MT.mostrarError("Rellene todos los campos");
         }
+
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+
         if (MT.mostrarPreguntaSiNo("Desea borrar a " + txtNombre.getText() + " " + txtApellidos.getText() + "?") == 0) {
             HT.delActor(HT.getHuesped(HuespedActual));
             HT.RellenarHuespedes();
@@ -499,9 +503,11 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
                 btnAceptar.setEnabled(false);
                 jPanel2.setVisible(false);
                 jPanel5.setVisible(true);
+
             } else {
                 MT.mostrarError("No se encontraron coincidencias");
             }
+
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
