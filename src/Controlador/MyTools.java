@@ -1,8 +1,6 @@
 package Controlador;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  * @author andres

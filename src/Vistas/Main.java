@@ -82,7 +82,14 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int resp = MT.mostrarPreguntaSiNo("Desea dar de alta un nuevo Hotel?");
-        if(resp == 0) { //Si
+        System.out.println(resp);
+        if(resp == 0) {             //Si
+            this.setVisible(false);
+            new Ventana_Hoteles(this).setVisible(true);
+        }else if (resp == 1) {      //No
+            this.setVisible(false);
+            new Lista_Hoteles(this, true).setVisible(true);
+        }else {                     //Ventana cerrada
             
         }
         

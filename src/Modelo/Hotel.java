@@ -63,6 +63,10 @@ public class Hotel  implements java.io.Serializable {
         this.habitacions = habitacions;
     }
 
+     @Override
+    public String toString(){
+        return this.idhotel + " - " + this.nombre; 
+    }
 
 
 
