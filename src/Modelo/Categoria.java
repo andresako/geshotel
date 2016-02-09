@@ -45,6 +45,10 @@ public class Categoria  implements java.io.Serializable {
         this.hotels = hotels;
     }
 
+     @Override
+    public String toString(){
+        return this.idcategoria + " ☆";
+    }
 
 
 

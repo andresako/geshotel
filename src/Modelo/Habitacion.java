@@ -54,6 +54,10 @@ public class Habitacion  implements java.io.Serializable {
         this.huespeds = huespeds;
     }
 
+     @Override
+    public String toString(){
+        return this.idhabitacion + ". " + this.numcamas + " camas.";
+    }
 
 
 
