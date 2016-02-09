@@ -58,6 +58,8 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtHabitacion = new javax.swing.JTextField();
         txtFechaNacimiento = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        txtSingle = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -230,6 +232,8 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         txtHabitacion.setText("jTextField7");
         txtHabitacion.setEnabled(false);
 
+        jLabel1.setText("Single");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -257,16 +261,20 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
                             .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtDireccion)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtSingle))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtHabitacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -296,11 +304,13 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSingle))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -463,6 +473,8 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
             hues.setFechaNac(txtFechaNacimiento.getDate());
             hues.setDireccion(txtDireccion.getText());
             hues.setPoblacion(txtPoblacion.getText());
+            if(txtSingle.isSelected())hues.setIndividual('S');
+            else hues.setIndividual('N');
 
             if (nuevoHuesped) {
                 HT.addHuesped(hues);
@@ -523,6 +535,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSig;
     private javax.swing.JButton btnUlt;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -544,6 +557,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
     private javax.swing.JTextField txtHabitacion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPoblacion;
+    private javax.swing.JCheckBox txtSingle;
     // End of variables declaration//GEN-END:variables
 
     private void setUi() {
@@ -576,7 +590,9 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         }
         txtHabitacion.setText(hab);
         txtContador.setText(HuespedActual + " de " + HT.ContarHuespedes());
-
+        if (HT.getHuesped(pos).getIndividual().equals('N'))txtSingle.setSelected(false);
+        else txtSingle.setSelected(true);
+        
         if (HuespedActual <= 1) {
             btnAnt.setEnabled(false);
             btnPri.setEnabled(false);
@@ -614,6 +630,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         txtFechaNacimiento.setEnabled(bl);
         txtDireccion.setEnabled(bl);
         txtPoblacion.setEnabled(bl);
+        txtSingle.setEnabled(bl);
         this.pack();
     }
 
