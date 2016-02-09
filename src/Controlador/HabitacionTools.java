@@ -65,7 +65,6 @@ public class HabitacionTools {
         } finally {
             session.close();
         }
-    
     }
 
     public void setHabitaciones() {
