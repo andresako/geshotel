@@ -7,11 +7,7 @@ import Modelo.Categoria;
 import Modelo.Habitacion;
 import Modelo.Hotel;
 import java.util.ArrayList;
-import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.ListModel;
 
 /**
@@ -433,13 +429,22 @@ public class Ventana_Hoteles extends javax.swing.JFrame {
         else{
             Habitacion cnt = (Habitacion) listaHab.getSelectedValue();
             System.out.println("Editando la habitacion: "+ cnt.getIdhabitacion());
+            Ventana_Habitacion VH = new Ventana_Habitacion(this, true);
+            VH.setHabitacion((Habitacion)listaHab.getSelectedValue());
+            VH.SetUi();
+            this.setVisible(false);
+            VH.setVisible(true);
         }
     }//GEN-LAST:event_btnEdiHabActionPerformed
 
     private void btnBorHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorHabActionPerformed
         if(listaHab.getSelectedIndex()<0)MT.mostrarPlain("Selecciona la habitacion a borrar");
         else{
-            
+            int resp = MT.mostrarPreguntaSiNo("Eliminar habitacion?");
+            if (resp == 0) {
+                HT.delHabitacion((Habitacion)listaHab.getSelectedValue());
+                MostrarDatos();
+            }
         }
     }//GEN-LAST:event_btnBorHabActionPerformed
 

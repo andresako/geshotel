@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelo.Habitacion;
 import Modelo.Hotel;
+import Modelo.Huesped;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -84,4 +85,41 @@ public class HabitacionTools {
             listaHabitaciones.add(Hab);
         }
     }
+
+    public void delHabitacion(Habitacion hab) {
+        Session session = sessionFactory.openSession();
+        Transaction tx;
+
+        try {
+            tx = session.beginTransaction();
+            session.delete(hab);
+            tx.commit();
+
+            MT.mostrarAviso("Borrada correctamente");
+        } catch (ConstraintViolationException e) {
+            MT.mostrarError("Al borrar habitacion");
+        } finally {
+            session.close();
+        }
+    }
+
+    public void editHabitacion(Habitacion habitacion) {
+
+    Session session = sessionFactory.openSession();
+        Transaction tx;
+
+        try {
+            tx = session.beginTransaction();
+            session.update(habitacion);
+            tx.commit();
+
+            MT.mostrarAviso("Editado correctamente");
+        } catch (ConstraintViolationException e) {
+            MT.mostrarError("Error al editar");
+        } finally {
+            session.close();
+        }
+    }
+
+    
 }

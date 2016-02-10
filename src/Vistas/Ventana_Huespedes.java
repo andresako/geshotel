@@ -497,7 +497,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
 
         if (MT.mostrarPreguntaSiNo("Desea borrar a " + txtNombre.getText() + " " + txtApellidos.getText() + "?") == 0) {
-            HT.delActor(HT.getHuesped(HuespedActual));
+            HT.delHuesped(HT.getHuesped(HuespedActual));
             HT.RellenarHuespedes();
             MostrarDatos(1);
         }

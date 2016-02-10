@@ -93,8 +93,11 @@ public class Huesped  implements java.io.Serializable {
     public void setIndividual(Character individual) {
         this.individual = individual;
     }
-
-
+    
+     @Override
+    public String toString(){
+        return this.nombre;
+    }
 
 
 }

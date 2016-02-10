@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.Habitacion;
 import Modelo.Huesped;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -107,7 +108,7 @@ public class HuespedTools {
 
     }
 
-    public void delActor(Huesped hues) {
+    public void delHuesped(Huesped hues) {
         Session session = sessionFactory.openSession();
         Transaction tx;
 
@@ -123,4 +124,71 @@ public class HuespedTools {
             session.close();
         }
     }
+
+    public Huesped[] sinTecho() {
+        Huesped[] sinTecho;
+
+        Session session = sessionFactory.openSession();
+        Transaction tx;
+        tx = session.beginTransaction();
+        Query q = session.createQuery("from Huesped where habitacion = NULL");
+        List<Huesped> lista = q.list();
+        Iterator<Huesped> iter = lista.iterator();
+        tx.commit();
+        session.close();
+        sinTecho = new Huesped[lista.size()];
+        int ct = 0;
+        while (iter.hasNext()) {
+            Huesped hue = (Huesped) iter.next();
+
+            sinTecho[ct] = hue;
+            ct++;
+        }
+
+        return sinTecho;
+    }
+
+    public Huesped[] conTecho(Habitacion habitacion) {
+        Huesped[] conTecho;
+
+        Session session = sessionFactory.openSession();
+        Transaction tx;
+        tx = session.beginTransaction();
+        Query q = session.createQuery("from Huesped where habitacion = " + habitacion.getIdhabitacion());
+        List<Huesped> lista = q.list();
+        Iterator<Huesped> iter = lista.iterator();
+        tx.commit();
+        session.close();
+        conTecho = new Huesped[lista.size()];
+        int ct = 0;
+        while (iter.hasNext()) {
+            Huesped hue = (Huesped) iter.next();
+
+            conTecho[ct] = hue;
+            ct++;
+        }
+
+        return conTecho;
+
+    }
+
+    public void limpiarHabitacion(Huesped[] lista, Integer idhabitacion) {
+        Session session = sessionFactory.openSession();
+        Transaction tx;
+
+        try {
+            tx = session.beginTransaction();
+            for(int x = 0; x < lista.length  ; x++){
+                lista[x].setHabitacion(null);
+                session.update(lista[x]);
+            }
+            tx.commit();
+        } catch (ConstraintViolationException e) {
+            MT.mostrarError("Error al limpiar");
+        } finally {
+            session.close();
+        }
+
+    }
+
 }
