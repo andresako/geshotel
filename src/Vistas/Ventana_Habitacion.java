@@ -15,8 +15,8 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
     private Habitacion habitacion;
     private final JFrame padre;
     private Huesped[] listaSinTecho;
-    private HuespedTools HT;
     private Huesped[] listaConTecho;
+    private HuespedTools HT;
 
     public Ventana_Habitacion(JFrame parent, boolean modal) {
         super(parent, modal);
@@ -66,8 +66,12 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
             }
         });
 
+        btnActCama.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         btnActCama.setText("✓");
-        btnActCama.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnActCama.setToolTipText("ATENCION! Limpiará la habitación.");
+        btnActCama.setBorder(null);
+        btnActCama.setBorderPainted(false);
+        btnActCama.setContentAreaFilled(false);
         btnActCama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActCamaActionPerformed(evt);
@@ -85,14 +89,12 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtHabId, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtHabId, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtHabCamas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtHabCamas, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnActCama)))
-                .addContainerGap())
+                        .addComponent(btnActCama, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,7 +107,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(txtHabCamas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActCama))
+                    .addComponent(btnActCama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,6 +212,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
 
     private void txtHabCamasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtHabCamasPropertyChange
         btnActCama.setEnabled(true);
+        btnActCama.setForeground(new java.awt.Color(255, 0, 0));
     }//GEN-LAST:event_txtHabCamasPropertyChange
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -217,38 +220,51 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        
-        habitacion.setNumcamas(txtHabCamas.getValue());
-        new HabitacionTools(habitacion.getHotel()).editHabitacion(habitacion);
-        
+
+        if (!btnActCama.isEnabled()) {
+            habitacion.setNumcamas(txtHabCamas.getValue());
+            new HabitacionTools(habitacion.getHotel()).editHabitacion(habitacion);
+        } 
         HT.limpiarHabitacion(listaConTecho, habitacion.getIdhabitacion());
-        
-        if(cmbCli1.getSelectedIndex() != -1){
-            Huesped hues = (Huesped)cmbCli1.getSelectedItem();
-            if(hues.getHabitacion() == null) hues.setHabitacion(habitacion);
+
+        if (cmbCli1.getSelectedIndex() != -1) {
+            Huesped hues = (Huesped) cmbCli1.getSelectedItem();
+            if (hues.getHabitacion() == null) {
+                hues.setHabitacion(habitacion);
+            }
             HT.modHuesped(hues);
         }
-        if(cmbCli2.getSelectedIndex() != -1){
-            Huesped hues = (Huesped)cmbCli2.getSelectedItem();
-            if(hues.getHabitacion() == null) hues.setHabitacion(habitacion);
-           HT.modHuesped(hues);
-        }
-        if(cmbCli3.getSelectedIndex() != -1){
-            Huesped hues = (Huesped)cmbCli3.getSelectedItem();
-            if(hues.getHabitacion() == null) hues.setHabitacion(habitacion);
+        if (cmbCli2.getSelectedIndex() != -1) {
+            Huesped hues = (Huesped) cmbCli2.getSelectedItem();
+            if (hues.getHabitacion() == null) {
+                hues.setHabitacion(habitacion);
+            }
             HT.modHuesped(hues);
         }
-        if(cmbCli4.getSelectedIndex() != -1){
-            Huesped hues = (Huesped)cmbCli4.getSelectedItem();
-            if(hues.getHabitacion() == null) hues.setHabitacion(habitacion);
+        if (cmbCli3.getSelectedIndex() != -1) {
+            Huesped hues = (Huesped) cmbCli3.getSelectedItem();
+            if (hues.getHabitacion() == null) {
+                hues.setHabitacion(habitacion);
+            }
             HT.modHuesped(hues);
         }
-        if(cmbCli5.getSelectedIndex() != -1){
-            Huesped hues = (Huesped)cmbCli5.getSelectedItem();
-            if(hues.getHabitacion() == null) hues.setHabitacion(habitacion);
+        if (cmbCli4.getSelectedIndex() != -1) {
+            Huesped hues = (Huesped) cmbCli4.getSelectedItem();
+            if (hues.getHabitacion() == null) {
+                hues.setHabitacion(habitacion);
+            }
             HT.modHuesped(hues);
         }
-        
+        if (cmbCli5.getSelectedIndex() != -1) {
+            Huesped hues = (Huesped) cmbCli5.getSelectedItem();
+            if (hues.getHabitacion() == null) {
+                hues.setHabitacion(habitacion);
+            }
+            HT.modHuesped(hues);
+        }
+
+        dispose();
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -277,16 +293,35 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
         txtHabCamas.setMinimum(1);
         txtHabCamas.setMaximum(5);
         listaSinTecho = new HuespedTools().sinTecho();
-        cmbCli1.setModel(new DefaultComboBoxModel(listaSinTecho));
+        listaConTecho = new HuespedTools().conTecho(habitacion);
+
+        cmbCli1.removeAllItems();
+        cmbCli2.removeAllItems();
+        cmbCli3.removeAllItems();
+        cmbCli4.removeAllItems();
+        cmbCli5.removeAllItems();
+
         cmbCli1.addItem(null);
-        cmbCli2.setModel(new DefaultComboBoxModel(listaSinTecho));
         cmbCli2.addItem(null);
-        cmbCli3.setModel(new DefaultComboBoxModel(listaSinTecho));
         cmbCli3.addItem(null);
-        cmbCli4.setModel(new DefaultComboBoxModel(listaSinTecho));
         cmbCli4.addItem(null);
-        cmbCli5.setModel(new DefaultComboBoxModel(listaSinTecho));
         cmbCli5.addItem(null);
+
+        for (Huesped listaSinTecho1 : listaSinTecho) {
+            cmbCli1.addItem(listaSinTecho1);
+            cmbCli2.addItem(listaSinTecho1);
+            cmbCli3.addItem(listaSinTecho1);
+            cmbCli4.addItem(listaSinTecho1);
+            cmbCli5.addItem(listaSinTecho1);
+        }
+
+        for (Huesped listaConTecho1 : listaConTecho) {
+            cmbCli1.addItem(listaConTecho1);
+            cmbCli2.addItem(listaConTecho1);
+            cmbCli3.addItem(listaConTecho1);
+            cmbCli4.addItem(listaConTecho1);
+            cmbCli5.addItem(listaConTecho1);
+        }
 
         txtHabId.setText("" + habitacion.getIdhabitacion());
         txtHabCamas.setValue(habitacion.getNumcamas());
@@ -320,23 +355,25 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
                 cmbCli1.setSelectedIndex(-1);
         }
         btnActCama.setEnabled(false);
+        btnActCama.setForeground(new java.awt.Color(214, 217, 223));
         this.pack();
     }
 
     private void rellenarCamas() {
-        listaConTecho = new HuespedTools().conTecho(habitacion);
-        if (listaConTecho.length <= 0) {
-            switch(listaConTecho.length){
+
+        System.out.println(listaConTecho.length);
+        if (listaConTecho.length > 0) {
+            switch (listaConTecho.length) {
                 case 5:
-                    cmbCli5.setSelectedItem(listaConTecho[4]);
+                    cmbCli5.setSelectedItem((Huesped) listaConTecho[4]);
                 case 4:
-                    cmbCli4.setSelectedItem(listaConTecho[3]);
+                    cmbCli4.setSelectedItem((Huesped) listaConTecho[3]);
                 case 3:
-                    cmbCli3.setSelectedItem(listaConTecho[2]);
+                    cmbCli3.setSelectedItem((Huesped) listaConTecho[2]);
                 case 2:
-                    cmbCli2.setSelectedItem(listaConTecho[1]);
+                    cmbCli2.setSelectedItem((Huesped) listaConTecho[1]);
                 case 1:
-                    cmbCli1.setSelectedItem(listaConTecho[0]);
+                    cmbCli1.setSelectedItem((Huesped) listaConTecho[0]);
             }
 
         }

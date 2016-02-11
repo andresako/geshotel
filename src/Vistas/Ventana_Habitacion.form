@@ -84,17 +84,14 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="txtHabId" min="-2" pref="75" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="txtHabId" min="-2" pref="75" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="txtHabCamas" max="32767" attributes="0"/>
+                          <Component id="txtHabCamas" min="-2" pref="49" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnActCama" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnActCama" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -110,7 +107,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <Component id="txtHabCamas" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnActCama" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnActCama" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -140,12 +137,16 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnActCama">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x2713;"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-                <BevelBorder/>
-              </Border>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="sansserif" size="14" style="1"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="&#x2713;"/>
+            <Property name="toolTipText" type="java.lang.String" value="ATENCION! Limpiar&#xe1; la habitaci&#xf3;n."/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActCamaActionPerformed"/>

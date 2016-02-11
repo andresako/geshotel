@@ -113,7 +113,7 @@ public class HabitacionTools {
             session.update(habitacion);
             tx.commit();
 
-            MT.mostrarAviso("Editado correctamente");
+            
         } catch (ConstraintViolationException e) {
             MT.mostrarError("Error al editar");
         } finally {

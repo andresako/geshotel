@@ -1,7 +1,9 @@
 package Controlador;
 
 import Modelo.Categoria;
+import Modelo.Habitacion;
 import Modelo.Hotel;
+import Modelo.Huesped;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +20,7 @@ import org.hibernate.exception.ConstraintViolationException;
  * @author andres
  */
 public class HotelTools {
-    
+
     MyTools MT;
 
     private final SessionFactory sessionFactory;
@@ -28,7 +30,7 @@ public class HotelTools {
         MT = new MyTools();
     }
 
-    public void rellenarRating(JComboBox combo){
+    public void rellenarRating(JComboBox combo) {
         Session session = sessionFactory.openSession();
 
         Transaction tx;
@@ -47,7 +49,7 @@ public class HotelTools {
         }
         combo.setModel(new DefaultComboBoxModel(listaC));
     }
-    
+
     private ArrayList<Hotel> listaHoteles;
 
     public DefaultListModel getListaHot() {
@@ -70,7 +72,7 @@ public class HotelTools {
         }
         return dlm;
     }
-    
+
     public void delHotel(Hotel hotel) {
         Session session = sessionFactory.openSession();
         Transaction tx;
@@ -81,7 +83,11 @@ public class HotelTools {
 
             MT.mostrarAviso("Borrado correctamente");
         } catch (ConstraintViolationException e) {
-            MT.mostrarError("Error al borrar");
+            
+            int resp = MT.mostrarPreguntaSiNo("El hotel tiene habitaciones dentro,\nDesea hacer limpieza por completo?");
+            if (resp == 0) {
+                machacarHotel(hotel);
+            }
         } finally {
             session.close();
         }
@@ -104,19 +110,46 @@ public class HotelTools {
     }
 
     public void editHotel(Hotel hotel) {
-       Session session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         Transaction tx;
         try {
             tx = session.beginTransaction();
             session.update(hotel);
             tx.commit();
 
-            MT.mostrarAviso("Editado correctamente");
         } catch (ConstraintViolationException e) {
             MT.mostrarError("Error al editar");
         } finally {
             session.close();
         }
+    }
+
+    private void machacarHotel(Hotel hotel) {
+
+        Session session = sessionFactory.openSession();
+        Transaction tx;
+        try {
+            tx = session.beginTransaction();
+            DefaultListModel dlm = new HabitacionTools(hotel).getListaHab();
+
+            for (int x = 0; x < dlm.size(); x++) {
+                Habitacion habitacion = (Habitacion) dlm.getElementAt(x);
+                Huesped[] listaHuespedes = new HuespedTools().conTecho(habitacion);
+                for (Huesped listaHuespede : listaHuespedes) {
+                    listaHuespede.setHabitacion(null);
+                    session.update(listaHuespede);
+                    tx.commit();
+                }
+                session.delete(habitacion);
+                tx.commit();
+            }
+            delHotel(hotel);
+        } catch (Exception e) {
+            MT.mostrarError("Error al borrar\n" + e.getClass());
+        } finally {
+            session.close();
+        }
+
     }
 
 }

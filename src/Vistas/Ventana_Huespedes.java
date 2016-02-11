@@ -651,6 +651,9 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         if (txtPoblacion.getText().equals("")) {
             return false;
         }
+        if (txtFechaNacimiento.getDate() == null) {
+            return false;
+        }
 
         return true;
     }
