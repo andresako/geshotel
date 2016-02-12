@@ -74,6 +74,7 @@ public class HotelTools {
     }
 
     public void delHotel(Hotel hotel) {
+        int resp = 1;
         Session session = sessionFactory.openSession();
         Transaction tx;
         try {
@@ -81,16 +82,17 @@ public class HotelTools {
             session.delete(hotel);
             tx.commit();
 
-            MT.mostrarAviso("Borrado correctamente");
         } catch (ConstraintViolationException e) {
-            
-            int resp = MT.mostrarPreguntaSiNo("El hotel tiene habitaciones dentro,\nDesea hacer limpieza por completo?");
-            if (resp == 0) {
-                machacarHotel(hotel);
-            }
+            resp = MT.mostrarPreguntaSiNo("El hotel tiene habitaciones dentro,\nDesea hacer limpieza por completo?");
+
         } finally {
             session.close();
         }
+
+        if (resp == 0) {
+            machacarHotel(hotel);
+        }
+
     }
 
     public void addHotel(Hotel hotel) {
@@ -129,27 +131,27 @@ public class HotelTools {
         Session session = sessionFactory.openSession();
         Transaction tx;
         try {
-            tx = session.beginTransaction();
             DefaultListModel dlm = new HabitacionTools(hotel).getListaHab();
 
             for (int x = 0; x < dlm.size(); x++) {
+                tx = session.beginTransaction();
                 Habitacion habitacion = (Habitacion) dlm.getElementAt(x);
                 Huesped[] listaHuespedes = new HuespedTools().conTecho(habitacion);
-                for (Huesped listaHuespede : listaHuespedes) {
-                    listaHuespede.setHabitacion(null);
-                    session.update(listaHuespede);
-                    tx.commit();
+                
+                for(int y = 0; y < listaHuespedes.length;y++){
+                    listaHuespedes[y].setHabitacion(null);
+                    session.update(listaHuespedes[y]);
+                    
                 }
                 session.delete(habitacion);
                 tx.commit();
             }
-            delHotel(hotel);
         } catch (Exception e) {
             MT.mostrarError("Error al borrar\n" + e.getClass());
         } finally {
             session.close();
         }
-
+        delHotel(hotel);
     }
 
 }
