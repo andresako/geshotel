@@ -361,7 +361,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
 
     private void rellenarCamas() {
 
-        System.out.println(listaConTecho.length);
+        //System.out.println(listaConTecho.length);
         if (listaConTecho.length > 0) {
             switch (listaConTecho.length) {
                 case 5:

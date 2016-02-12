@@ -415,13 +415,14 @@ public class Ventana_Hoteles extends javax.swing.JFrame {
 
     private void btnAddHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHabActionPerformed
         ListModel contador = listaHab.getModel();
-        System.out.println(contador.getSize());
         if (contador.getSize() < 5) {
             int resp = MT.mostrarPreguntaSiNo("Añadir habitacion?");
             if (resp == 0) {
                 HT.addHabitacion(new Habitacion(hotel, 1, null));
                 MostrarDatos();
             }
+        }else{
+            MT.mostrarError("Máximo 5 habitaciones por hotel");
         }
     }//GEN-LAST:event_btnAddHabActionPerformed
 

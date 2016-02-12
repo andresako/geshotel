@@ -24,9 +24,22 @@ public class MyTools {
 
     public int mostrarPreguntaSiNo(String msg) {
         String[] buttons = {"Si", "No"};
+        String resp;
         int rc = JOptionPane.showOptionDialog(null, msg,
                 "Confirmation", JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons[1]);
-        System.out.println("Pregunta: " + msg + " Respues: " + rc);
+        
+        switch (rc) {
+            case 0:
+                resp = "SI";
+                break;
+            case 1:
+                resp = "NO";
+                break;
+            default:
+                resp = "Cerrado";
+                break;
+        }
+        System.out.println("Pregunta: " + msg + " Respues: " + resp);
 
         return rc;
     }
