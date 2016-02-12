@@ -4,7 +4,14 @@ import Controlador.HabitacionTools;
 import Controlador.HuespedTools;
 import Modelo.Habitacion;
 import Modelo.Huesped;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 /**
@@ -17,6 +24,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
     private Huesped[] listaSinTecho;
     private Huesped[] listaConTecho;
     private HuespedTools HT;
+    private ArrayList<Huesped> actuales;
 
     public Ventana_Habitacion(JFrame parent, boolean modal) {
         super(parent, modal);
@@ -220,51 +228,51 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        if (noRepetidos()) {
+            if (!btnActCama.isEnabled()) {
+                habitacion.setNumcamas(txtHabCamas.getValue());
+                new HabitacionTools(habitacion.getHotel()).editHabitacion(habitacion);
+            }
+            HT.limpiarHabitacion(listaConTecho, habitacion.getIdhabitacion());
 
-        if (!btnActCama.isEnabled()) {
-            habitacion.setNumcamas(txtHabCamas.getValue());
-            new HabitacionTools(habitacion.getHotel()).editHabitacion(habitacion);
-        } 
-        HT.limpiarHabitacion(listaConTecho, habitacion.getIdhabitacion());
+            if (cmbCli1.getSelectedIndex() != -1) {
+                Huesped hues = (Huesped) cmbCli1.getSelectedItem();
+                if (hues.getHabitacion() == null) {
+                    hues.setHabitacion(habitacion);
+                }
+                HT.modHuesped(hues);
+            }
+            if (cmbCli2.getSelectedIndex() != -1) {
+                Huesped hues = (Huesped) cmbCli2.getSelectedItem();
+                if (hues.getHabitacion() == null) {
+                    hues.setHabitacion(habitacion);
+                }
+                HT.modHuesped(hues);
+            }
+            if (cmbCli3.getSelectedIndex() != -1) {
+                Huesped hues = (Huesped) cmbCli3.getSelectedItem();
+                if (hues.getHabitacion() == null) {
+                    hues.setHabitacion(habitacion);
+                }
+                HT.modHuesped(hues);
+            }
+            if (cmbCli4.getSelectedIndex() != -1) {
+                Huesped hues = (Huesped) cmbCli4.getSelectedItem();
+                if (hues.getHabitacion() == null) {
+                    hues.setHabitacion(habitacion);
+                }
+                HT.modHuesped(hues);
+            }
+            if (cmbCli5.getSelectedIndex() != -1) {
+                Huesped hues = (Huesped) cmbCli5.getSelectedItem();
+                if (hues.getHabitacion() == null) {
+                    hues.setHabitacion(habitacion);
+                }
+                HT.modHuesped(hues);
+            }
 
-        if (cmbCli1.getSelectedIndex() != -1) {
-            Huesped hues = (Huesped) cmbCli1.getSelectedItem();
-            if (hues.getHabitacion() == null) {
-                hues.setHabitacion(habitacion);
-            }
-            HT.modHuesped(hues);
+            dispose();
         }
-        if (cmbCli2.getSelectedIndex() != -1) {
-            Huesped hues = (Huesped) cmbCli2.getSelectedItem();
-            if (hues.getHabitacion() == null) {
-                hues.setHabitacion(habitacion);
-            }
-            HT.modHuesped(hues);
-        }
-        if (cmbCli3.getSelectedIndex() != -1) {
-            Huesped hues = (Huesped) cmbCli3.getSelectedItem();
-            if (hues.getHabitacion() == null) {
-                hues.setHabitacion(habitacion);
-            }
-            HT.modHuesped(hues);
-        }
-        if (cmbCli4.getSelectedIndex() != -1) {
-            Huesped hues = (Huesped) cmbCli4.getSelectedItem();
-            if (hues.getHabitacion() == null) {
-                hues.setHabitacion(habitacion);
-            }
-            HT.modHuesped(hues);
-        }
-        if (cmbCli5.getSelectedIndex() != -1) {
-            Huesped hues = (Huesped) cmbCli5.getSelectedItem();
-            if (hues.getHabitacion() == null) {
-                hues.setHabitacion(habitacion);
-            }
-            HT.modHuesped(hues);
-        }
-
-        dispose();
-
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -294,6 +302,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
         txtHabCamas.setMaximum(5);
         listaSinTecho = new HuespedTools().sinTecho();
         listaConTecho = new HuespedTools().conTecho(habitacion);
+        
 
         cmbCli1.removeAllItems();
         cmbCli2.removeAllItems();
@@ -323,6 +332,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
             cmbCli5.addItem(listaConTecho1);
         }
 
+        listenerCombos();
         txtHabId.setText("" + habitacion.getIdhabitacion());
         txtHabCamas.setValue(habitacion.getNumcamas());
         mostrarCamas();
@@ -360,22 +370,54 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
     }
 
     private void rellenarCamas() {
-
+        actuales = new ArrayList<>();
         //System.out.println(listaConTecho.length);
         if (listaConTecho.length > 0) {
             switch (listaConTecho.length) {
                 case 5:
                     cmbCli5.setSelectedItem((Huesped) listaConTecho[4]);
+                    actuales.add((Huesped) listaConTecho[4]);
                 case 4:
                     cmbCli4.setSelectedItem((Huesped) listaConTecho[3]);
+                    actuales.add((Huesped) listaConTecho[3]);
                 case 3:
                     cmbCli3.setSelectedItem((Huesped) listaConTecho[2]);
+                    actuales.add((Huesped) listaConTecho[2]);
                 case 2:
                     cmbCli2.setSelectedItem((Huesped) listaConTecho[1]);
+                    actuales.add((Huesped) listaConTecho[1]);
                 case 1:
                     cmbCli1.setSelectedItem((Huesped) listaConTecho[0]);
+                    actuales.add((Huesped) listaConTecho[0]);
             }
 
         }
+    }
+
+    private boolean noRepetidos() {
+
+        return true;
+    }
+
+    private void listenerCombos() {
+
+        ItemListener IL = new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(actuales.contains((Huesped)e.getItem())){
+                   //((JComboBox)e.getSource()).setSelectedIndex(-1);
+                    System.out.println("mec" + ((JComboBox)e.getSource()).getSelectedIndex());
+                }else{
+                    actuales.add((Huesped)e.getItem());
+                }
+            }
+            
+        };
+
+        cmbCli1.addItemListener(IL);
+        cmbCli2.addItemListener(IL);
+        cmbCli3.addItemListener(IL);
+        cmbCli4.addItemListener(IL);
+        cmbCli5.addItemListener(IL);
     }
 }

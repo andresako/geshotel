@@ -141,7 +141,6 @@ public class HotelTools {
                 for(int y = 0; y < listaHuespedes.length;y++){
                     listaHuespedes[y].setHabitacion(null);
                     session.update(listaHuespedes[y]);
-                    
                 }
                 session.delete(habitacion);
                 tx.commit();
@@ -153,5 +152,4 @@ public class HotelTools {
         }
         delHotel(hotel);
     }
-
 }

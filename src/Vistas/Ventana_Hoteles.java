@@ -14,7 +14,7 @@ import javax.swing.ListModel;
  * @author andres
  */
 public class Ventana_Hoteles extends javax.swing.JFrame {
-    
+
     private Hotel hotel;
     private MyTools MT;
     private HabitacionTools HT;
@@ -22,27 +22,27 @@ public class Ventana_Hoteles extends javax.swing.JFrame {
     private ArrayList<Habitacion> ListaHabitaciones;
     private JFrame padre;
     private boolean nuevoHotel;
-    
+
     public Ventana_Hoteles() {
     }
-    
+
     public Ventana_Hoteles(JFrame padre) {
         initComponents();
         this.padre = padre;
         SetUi();
         nuevoHotel();
     }
-    
+
     public Ventana_Hoteles(Hotel hotel, JFrame padre) {
         initComponents();
         this.hotel = hotel;
         this.padre = padre;
         HT = new HabitacionTools(hotel);
-        
+
         SetUi();
         MostrarDatos();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -362,18 +362,18 @@ public class Ventana_Hoteles extends javax.swing.JFrame {
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         if (nuevoHotel) {
             if (minimos()) {
-                hotel = new Hotel((Categoria)cmbEstrellas.getSelectedItem(), txtNombre.getText(), txtCiudad.getText(), null);
+                hotel = new Hotel((Categoria) cmbEstrellas.getSelectedItem(), txtNombre.getText(), txtCiudad.getText(), null);
                 HoT.addHotel(hotel);
                 btnListaActionPerformed(evt);
             } else {
                 MT.mostrarError("Rellena todos los campos");
             }
-        }else{
+        } else {
             hotel.setNombre(txtNombre.getText());
             hotel.setCiudad(txtCiudad.getText());
-            hotel.setCategoria((Categoria)cmbEstrellas.getSelectedItem());
+            hotel.setCategoria((Categoria) cmbEstrellas.getSelectedItem());
             HoT.editHotel(hotel);
-            
+
             MostrarDatos();
         }
     }//GEN-LAST:event_btnOkActionPerformed
@@ -405,7 +405,7 @@ public class Ventana_Hoteles extends javax.swing.JFrame {
             HoT.delHotel(hotel);
             btnListaActionPerformed(evt);
         } else {
-            
+
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -414,25 +414,26 @@ public class Ventana_Hoteles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAddHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHabActionPerformed
-        ListModel contador = listaHab.getModel();
-        if (contador.getSize() < 5) {
-            int resp = MT.mostrarPreguntaSiNo("Añadir habitacion?");
-            if (resp == 0) {
-                HT.addHabitacion(new Habitacion(hotel, 1, null));
-                MostrarDatos();
-            }
-        }else{
-            MT.mostrarError("Máximo 5 habitaciones por hotel");
+//        ListModel contador = listaHab.getModel();
+//        if (contador.getSize() < 5) {
+        int resp = MT.mostrarPreguntaSiNo("Añadir habitacion?");
+        if (resp == 0) {
+            HT.addHabitacion(new Habitacion(hotel, 1, null));
+            MostrarDatos();
         }
+//        }else{
+//            MT.mostrarError("Máximo 5 habitaciones por hotel");
+//        }
     }//GEN-LAST:event_btnAddHabActionPerformed
 
     private void btnEdiHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdiHabActionPerformed
-        if(listaHab.getSelectedIndex()<0)MT.mostrarPlain("Selecciona la habitacion a editar");
-        else{
+        if (listaHab.getSelectedIndex() < 0) {
+            MT.mostrarPlain("Selecciona la habitacion a editar");
+        } else {
             Habitacion cnt = (Habitacion) listaHab.getSelectedValue();
-            System.out.println("Editando la habitacion: "+ cnt.getIdhabitacion());
+            System.out.println("Editando la habitacion: " + cnt.getIdhabitacion());
             Ventana_Habitacion VH = new Ventana_Habitacion(this, true);
-            VH.setHabitacion((Habitacion)listaHab.getSelectedValue());
+            VH.setHabitacion((Habitacion) listaHab.getSelectedValue());
             VH.SetUi();
             this.setVisible(false);
             VH.setVisible(true);
@@ -440,11 +441,12 @@ public class Ventana_Hoteles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEdiHabActionPerformed
 
     private void btnBorHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorHabActionPerformed
-        if(listaHab.getSelectedIndex()<0)MT.mostrarPlain("Selecciona la habitacion a borrar");
-        else{
+        if (listaHab.getSelectedIndex() < 0) {
+            MT.mostrarPlain("Selecciona la habitacion a borrar");
+        } else {
             int resp = MT.mostrarPreguntaSiNo("Eliminar habitacion?");
             if (resp == 0) {
-                HT.delHabitacion((Habitacion)listaHab.getSelectedValue());
+                HT.delHabitacion((Habitacion) listaHab.getSelectedValue());
                 MostrarDatos();
             }
         }
@@ -484,45 +486,45 @@ public class Ventana_Hoteles extends javax.swing.JFrame {
         HoT = new HotelTools();
         HoT.rellenarRating(cmbEstrellas);
     }
-    
+
     private void MostrarDatos() {
         txtId.setText("" + hotel.getIdhotel());
         cmbEstrellas.setSelectedIndex(hotel.getCategoria().getIdcategoria() - 1);
         txtNombre.setText(hotel.getNombre());
         txtCiudad.setText(hotel.getCiudad());
         listaHab.setModel(HT.getListaHab());
-        
+
         HabilitarEdicion(false);
         HT.setHabitaciones();
-        
+
     }
-    
+
     private void nuevoHotel() {
         nuevoHotel = true;
         jLabel1.setText("Nuevo Hotel");
-        
+
         txtId.setText("");
         txtNombre.setText("");
         txtCiudad.setText("");
         cmbEstrellas.setSelectedIndex(-1);
-        
+
         HabilitarEdicion(true);
-        
+
     }
-    
+
     private void HabilitarEdicion(boolean b) {
         txtNombre.setEnabled(b);
         txtCiudad.setEnabled(b);
         cmbEstrellas.setEnabled(b);
         panelEdicion.setVisible(b);
-        
+
         panelLista.setVisible(!b);
         panelEdicionLista.setVisible(!b);
         panelBotones.setVisible(!b);
-        
+
         this.pack();
     }
-    
+
     private boolean minimos() {
         if (txtNombre.getText().equals("")) {
             return false;
@@ -533,8 +535,8 @@ public class Ventana_Hoteles extends javax.swing.JFrame {
         if (cmbEstrellas.getSelectedIndex() == -1) {
             return false;
         }
-        
+
         return true;
     }
-    
+
 }

@@ -16,6 +16,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
     private MyTools MT;
     private int HuespedActual;
     private boolean nuevoHuesped;
+    private boolean modoBuscar = false;
 
     public Ventana_Huespedes() {
     }
@@ -432,13 +433,13 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
-        if (btnModificar.isEnabled()) {
+        if (modoBuscar) {
             HT.RellenarHuespedes();
         }
 
         ActivarEdicion(false);
         MostrarDatos(HuespedActual);
+        modoBuscar = false;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -473,8 +474,11 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
             hues.setFechaNac(txtFechaNacimiento.getDate());
             hues.setDireccion(txtDireccion.getText());
             hues.setPoblacion(txtPoblacion.getText());
-            if(txtSingle.isSelected())hues.setIndividual('S');
-            else hues.setIndividual('N');
+            if (txtSingle.isSelected()) {
+                hues.setIndividual('S');
+            } else {
+                hues.setIndividual('N');
+            }
 
             if (nuevoHuesped) {
                 HT.addHuesped(hues);
@@ -509,6 +513,7 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
             HT.RellenarHuespedes(resp);
             if (HT.ContarHuespedes() > 0) {
                 MostrarDatos(1);
+                modoBuscar = true;
 
                 btnNuevo.setEnabled(false);
                 btnBuscar.setEnabled(false);
@@ -590,9 +595,12 @@ public class Ventana_Huespedes extends javax.swing.JFrame {
         }
         txtHabitacion.setText(hab);
         txtContador.setText(HuespedActual + " de " + HT.ContarHuespedes());
-        if (HT.getHuesped(pos).getIndividual().equals('N'))txtSingle.setSelected(false);
-        else txtSingle.setSelected(true);
-        
+        if (HT.getHuesped(pos).getIndividual().equals('N')) {
+            txtSingle.setSelected(false);
+        } else {
+            txtSingle.setSelected(true);
+        }
+
         if (HuespedActual <= 1) {
             btnAnt.setEnabled(false);
             btnPri.setEnabled(false);
