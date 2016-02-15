@@ -8,7 +8,6 @@ import Modelo.Habitacion;
 import Modelo.Hotel;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.ListModel;
 
 /**
  * @author andres
