@@ -23,6 +23,8 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
     private final JFrame padre;
     private Huesped[] listaSinTecho;
     private Huesped[] listaConTecho;
+    private Huesped[] listaSolosHab;
+    private Huesped[] listaSolosTotales;
     private HuespedTools HT;
     private ArrayList<Huesped> actuales;
 
@@ -48,6 +50,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
         cmbCli3 = new javax.swing.JComboBox();
         cmbCli4 = new javax.swing.JComboBox();
         cmbCli5 = new javax.swing.JComboBox();
+        cmbSolitario = new javax.swing.JComboBox();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -102,7 +105,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
                         .addComponent(txtHabCamas, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnActCama, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,6 +134,8 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
 
         cmbCli5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        cmbSolitario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -138,11 +143,12 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbCli1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbCli1, 0, 193, Short.MAX_VALUE)
                     .addComponent(cmbCli2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbCli3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbCli4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbCli5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmbCli5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbSolitario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -158,6 +164,8 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
                 .addComponent(cmbCli4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbCli5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbSolitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -181,12 +189,11 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(17, 17, 17)
                         .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -199,7 +206,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
@@ -270,6 +277,13 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
                 }
                 HT.modHuesped(hues);
             }
+            if (cmbSolitario.getSelectedIndex() != -1) {
+                Huesped hues = (Huesped) cmbSolitario.getSelectedItem();
+                if (hues.getHabitacion() == null) {
+                    hues.setHabitacion(habitacion);
+                }
+                HT.modHuesped(hues);
+            }
 
             dispose();
         }
@@ -284,6 +298,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbCli3;
     private javax.swing.JComboBox cmbCli4;
     private javax.swing.JComboBox cmbCli5;
+    private javax.swing.JComboBox cmbSolitario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -300,21 +315,24 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
     public void SetUi() {
         txtHabCamas.setMinimum(1);
         txtHabCamas.setMaximum(5);
-        listaSinTecho = new HuespedTools().sinTecho();
-        listaConTecho = new HuespedTools().conTecho(habitacion);
-        
+        listaSinTecho = HT.sinTecho();
+        listaConTecho = HT.conTecho(habitacion);
+        listaSolosTotales = HT.listaSolosTotal(habitacion);
+        listaSolosHab = HT.listaSolos(habitacion);
 
         cmbCli1.removeAllItems();
         cmbCli2.removeAllItems();
         cmbCli3.removeAllItems();
         cmbCli4.removeAllItems();
         cmbCli5.removeAllItems();
+        cmbSolitario.removeAllItems();
 
         cmbCli1.addItem(null);
         cmbCli2.addItem(null);
         cmbCli3.addItem(null);
         cmbCli4.addItem(null);
         cmbCli5.addItem(null);
+        cmbSolitario.addItem(null);
 
         for (Huesped listaSinTecho1 : listaSinTecho) {
             cmbCli1.addItem(listaSinTecho1);
@@ -332,7 +350,11 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
             cmbCli5.addItem(listaConTecho1);
         }
 
-        listenerCombos();
+        for (Huesped listaSolo : listaSolosTotales) {
+            cmbSolitario.addItem(listaSolo);
+        }
+
+        //listenerCombos();
         txtHabId.setText("" + habitacion.getIdhabitacion());
         txtHabCamas.setValue(habitacion.getNumcamas());
         mostrarCamas();
@@ -346,6 +368,7 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
         cmbCli3.setVisible(false);
         cmbCli4.setVisible(false);
         cmbCli5.setVisible(false);
+        cmbSolitario.setVisible(false);
         int camas = txtHabCamas.getValue();
         switch (camas) {
             case 5:
@@ -360,9 +383,12 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
             case 2:
                 cmbCli2.setVisible(true);
                 cmbCli2.setSelectedIndex(-1);
-            case 1:
                 cmbCli1.setVisible(true);
                 cmbCli1.setSelectedIndex(-1);
+                break;
+            case 1:
+                cmbSolitario.setVisible(true);
+                cmbSolitario.setSelectedIndex(-1);
         }
         btnActCama.setEnabled(false);
         btnActCama.setForeground(new java.awt.Color(214, 217, 223));
@@ -372,26 +398,30 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
     private void rellenarCamas() {
         actuales = new ArrayList<>();
         //System.out.println(listaConTecho.length);
-        if (listaConTecho.length > 0) {
-            switch (listaConTecho.length) {
-                case 5:
-                    cmbCli5.setSelectedItem((Huesped) listaConTecho[4]);
-                    actuales.add((Huesped) listaConTecho[4]);
-                case 4:
-                    cmbCli4.setSelectedItem((Huesped) listaConTecho[3]);
-                    actuales.add((Huesped) listaConTecho[3]);
-                case 3:
-                    cmbCli3.setSelectedItem((Huesped) listaConTecho[2]);
-                    actuales.add((Huesped) listaConTecho[2]);
-                case 2:
-                    cmbCli2.setSelectedItem((Huesped) listaConTecho[1]);
-                    actuales.add((Huesped) listaConTecho[1]);
-                case 1:
-                    cmbCli1.setSelectedItem((Huesped) listaConTecho[0]);
-                    actuales.add((Huesped) listaConTecho[0]);
-            }
 
+        if (listaSolosHab.length > 0) {
+                        cmbSolitario.setSelectedItem((Huesped) listaSolosHab[0]);
+                        actuales.add((Huesped) listaSolosHab[0]);
         }
+        if (listaConTecho.length > 0) {
+                switch (listaConTecho.length) {
+                    case 5:
+                        cmbCli5.setSelectedItem((Huesped) listaConTecho[4]);
+                        actuales.add((Huesped) listaConTecho[4]);
+                    case 4:
+                        cmbCli4.setSelectedItem((Huesped) listaConTecho[3]);
+                        actuales.add((Huesped) listaConTecho[3]);
+                    case 3:
+                        cmbCli3.setSelectedItem((Huesped) listaConTecho[2]);
+                        actuales.add((Huesped) listaConTecho[2]);
+                    case 2:
+                        cmbCli2.setSelectedItem((Huesped) listaConTecho[1]);
+                        actuales.add((Huesped) listaConTecho[1]);
+                    case 1:
+                        cmbCli1.setSelectedItem((Huesped) listaConTecho[0]);
+                        actuales.add((Huesped) listaConTecho[0]);       
+                }
+            }
     }
 
     private boolean noRepetidos() {
@@ -404,14 +434,14 @@ public class Ventana_Habitacion extends javax.swing.JDialog {
         ItemListener IL = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if(actuales.contains((Huesped)e.getItem())){
-                   //((JComboBox)e.getSource()).setSelectedIndex(-1);
-                    System.out.println("mec" + ((JComboBox)e.getSource()).getSelectedIndex());
-                }else{
-                    actuales.add((Huesped)e.getItem());
+                if (actuales.contains((Huesped) e.getItem())) {
+                    //((JComboBox)e.getSource()).setSelectedIndex(-1);
+                    System.out.println("mec" + ((JComboBox) e.getSource()).getSelectedIndex());
+                } else {
+                    actuales.add((Huesped) e.getItem());
                 }
             }
-            
+
         };
 
         cmbCli1.addItemListener(IL);

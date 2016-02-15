@@ -130,7 +130,7 @@ public class HuespedTools {
         Session session = sessionFactory.openSession();
         Transaction tx;
         tx = session.beginTransaction();
-        Query q = session.createQuery("from Huesped where habitacion = NULL");
+        Query q = session.createQuery("from Huesped where habitacion = NULL and individual = 'N'");
         List<Huesped> lista = q.list();
         Iterator<Huesped> iter = lista.iterator();
         tx.commit();
@@ -153,7 +153,7 @@ public class HuespedTools {
         Session session = sessionFactory.openSession();
         Transaction tx;
         tx = session.beginTransaction();
-        Query q = session.createQuery("from Huesped where habitacion = " + habitacion.getIdhabitacion());
+        Query q = session.createQuery("from Huesped where habitacion = " + habitacion.getIdhabitacion() + "AND individual = 'N'");
         List<Huesped> lista = q.list();
         Iterator<Huesped> iter = lista.iterator();
         tx.commit();
@@ -174,20 +174,86 @@ public class HuespedTools {
     public void limpiarHabitacion(Huesped[] lista, Integer idhabitacion) {
         Session session = sessionFactory.openSession();
         Transaction tx;
-
         try {
+
             tx = session.beginTransaction();
-            for(int x = 0; x < lista.length  ; x++){
+            for (int x = 0; x < lista.length; x++) {
                 lista[x].setHabitacion(null);
                 session.update(lista[x]);
             }
             tx.commit();
+
+            tx = session.beginTransaction();
+            Query q = session.createQuery("from Huesped where individual = 'S' and habitacion = " + idhabitacion);
+            List<Huesped> lista1 = q.list();
+            Iterator<Huesped> iter = lista1.iterator();
+            tx.commit();
+
+            while (iter.hasNext()) {
+                Huesped hue = (Huesped) iter.next();
+                hue.setHabitacion(null);
+                session.update(hue);
+            }
+
         } catch (ConstraintViolationException e) {
             MT.mostrarError("Error al limpiar");
         } finally {
             session.close();
         }
 
+    }
+
+    public Huesped[] listaSolosTotal(Habitacion habitacion) {
+
+        Huesped[] solos;
+
+        Session session = sessionFactory.openSession();
+        Transaction tx;
+        tx = session.beginTransaction();
+        Query q = session.createQuery("from Huesped where individual = 'S' and habitacion = null or habitacion = " + habitacion.getIdhabitacion());
+        List<Huesped> lista = q.list();
+        Iterator<Huesped> iter = lista.iterator();
+
+        tx.commit();
+
+        session.close();
+        solos = new Huesped[lista.size()];
+        int ct = 0;
+
+        while (iter.hasNext()) {
+            Huesped hue = (Huesped) iter.next();
+
+            solos[ct] = hue;
+            ct++;
+        }
+
+        return solos;
+    }
+
+    public Huesped[] listaSolos(Habitacion habitacion) {
+
+        Huesped[] solos;
+
+        Session session = sessionFactory.openSession();
+        Transaction tx;
+        tx = session.beginTransaction();
+        Query q = session.createQuery("from Huesped where individual = 'S' and habitacion = " + habitacion.getIdhabitacion());
+        List<Huesped> lista = q.list();
+        Iterator<Huesped> iter = lista.iterator();
+
+        tx.commit();
+
+        session.close();
+        solos = new Huesped[lista.size()];
+        int ct = 0;
+
+        while (iter.hasNext()) {
+            Huesped hue = (Huesped) iter.next();
+            solos[ct] = hue;
+            ct++;
+        }
+
+        return solos;
     }
 
 }
